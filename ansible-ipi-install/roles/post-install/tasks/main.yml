@@ -101,7 +101,10 @@
     KUBECONFIG: "{{ kubeconfig_path }}"
   when: infra_node_string_1 != "" or infra_node_string_2 != ""
 
-
 - name: Deploy dittybopper
   include_tasks: 70_deploy_dittybopper.yml
   when: dittybopper_enable
+
+- name: Apply KubeletConfig
+  include_tasks: 80_deploy_kubeletconfig.yml
+  when: custom-kubeletconfig is defined
