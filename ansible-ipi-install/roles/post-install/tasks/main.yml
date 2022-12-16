@@ -1,5 +1,6 @@
 - name: Wait 7m for all the nodes to settle
   command: sleep 900
+  tags: "node_settle_wait"
 
 - block:
   - name: Label infra nodes
@@ -101,7 +102,10 @@
     KUBECONFIG: "{{ kubeconfig_path }}"
   when: infra_node_string_1 != "" or infra_node_string_2 != ""
 
-
 - name: Deploy dittybopper
   include_tasks: 70_deploy_dittybopper.yml
   when: dittybopper_enable
+
+- name: Apply KubeletConfig
+  include_tasks: 80_deploy_kubeletconfig.yml
+  when: custom_kubeletconfig is defined
