@@ -10,11 +10,12 @@
   - name: Label infra nodes
     shell: |
        oc label node '{{ infra_node_string_2 }}' 'node-role.kubernetes.io/infra=' --overwrite
+  when: infra_node_string_1 != "" or infra_node_string_2 != ""
 
-  - name: Label workload nodes
-    shell: |
-       oc label node '{{ workload_node_string }}' 'node-role.kubernetes.io/workload=' --overwrite
-  when: infra_node_string_1 != "" or infra_node_string_2 != "" or workload_node_string != ""
+- name: Label workload nodes
+  shell: |
+     oc label node '{{ workload_node_string }}' 'node-role.kubernetes.io/workload=' --overwrite
+  when: workload_node_string != ""
 
 - name: OVN block
   block:

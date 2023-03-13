@@ -578,6 +578,13 @@ $ cd ansible-ipi-install/
 $ ansible-playbook -i inventory/jetski/hosts playbook-jetski.yml
 ```
 
+There are tags that can help you to re-run certain parts of the playbook without starting over.
+For example, if the install was successful, but post-install fails, you can re-run with:
+
+```sh
+$ ansible-playbook -i inventory/jetski/hosts --skip-tags 'install,node_settle_wait' playbook-jetski.yml
+```
+
 ## Verifying Installation
 
 Once the playbook has successfully completed, verify that your environment is up and running. 
