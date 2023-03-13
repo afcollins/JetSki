@@ -1,5 +1,5 @@
 # Your allocation name/number in the shared labs
-cloud_name: cloud00
+cloud_name: cloud19
 # Lab name, typically can be alias or scale
 lab_name: scale
 # Default root password to your nodes in the lab allocation so that keys can be added automatically for ansible to run
@@ -9,10 +9,10 @@ ansible_ssh_key: "{{ ansible_user_dir }}/.ssh/id_rsa"
 # The version of the openshift-installer, undefined or empty results in the playbook failing with error message.
 # Values accepted: 'latest-4.3', 'latest-4.4', explicit version i.e. 4.3.0-0.nightly-2019-12-09-035405
 # For reference, https://amd64.ocp.releases.ci.openshift.org/ and https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/
-version: "4.4.4"
+version: "4.13.0-ec.4"
 # Enter whether the build should use 'dev' (nightly builds) or 'ga' for Generally Available version of OpenShift
 # Empty value results in playbook failing with error message.
-build: "ga"
+build: "dev"
 # Your pull secret, as is. https://cloud.redhat.com/openshift/install (Do not add any quotes)
 pullsecret:
 # This variable is used to point to the foreman server that is used to reimage nodes. This variables is useful in two cases
@@ -41,9 +41,9 @@ rebuild_provisioner: false
 # Update this variable to scale up your existing cluster, provided lab allocation is sufficient to scale up to this count. 
 # If not mentioned for a scale up execution, it includes all node available in the inventory `ocpnondeployednodeinv.json`
 # If mentioned, this value should be final worker count and cannot be less than existing worker_count.
-worker_count: 0
+worker_count: 28
 # set to true to deploy with jumbo frames
-jumbo_mtu: false
+jumbo_mtu: true
 # set to true only if you requested a public routable VLAN for your cloud in scale lab
 routable_api: false
 
@@ -52,9 +52,9 @@ routable_api: false
 post_install: "{{ lookup('env', 'POST_INSTALL')|default(false, true) }}"
 openshift_toggle_ovn_patch: "{{ lookup('env', 'OVN_PATCH')|default(false, true) }}"
 openshift_ovn_image: "{{ lookup('env', 'OVN_IMAGE')|default('', true) }}"
-infra_node_string_1: "{{ lookup('env', 'INFRA_NODE_STRING_1')|default('worker000-r640', true) }}"
-infra_node_string_2: "{{ lookup('env', 'INFRA_NODE_STRING_2')|default('worker001-r640', true) }}"
-workload_node_string: "{{ lookup('env', 'WORKLOAD_NODE_STRING')|default('worker002-r640', true) }}"
+infra_node_string_1: "{{ lookup('env', 'INFRA_NODE_STRING_1')|default('worker000-r650', true) }}"
+infra_node_string_2: "{{ lookup('env', 'INFRA_NODE_STRING_2')|default('worker001-r650', true) }}"
+workload_node_string: "{{ lookup('env', 'WORKLOAD_NODE_STRING')|default('', true) }}"
 
 # If you wish to sort the machines in the Quads inventory by machine type, set these fields to pick which machines you want first
 # (i.e. control plane) and the remaining machines will come next (workers).  The code around these variables assumes a cluster
